@@ -1,6 +1,6 @@
 # CB Plotdesk – TYPO3 Extension
 
-Plotdesk-Integration für TYPO3: Seitenbaum-SEO-Daten (`seo_title`, `description`) per Reaction als JSON bereitstellen.
+Plotdesk-Integration für TYPO3: Seitenbaum-SEO-Daten und Content-Elemente per Reaction als JSON bereitstellen.
 
 [![TYPO3 13](https://img.shields.io/badge/TYPO3-13.4-orange.svg)](https://get.typo3.org/version/13)
 [![PHP 8.2+](https://img.shields.io/badge/PHP-8.2%20%7C%208.3-blue.svg)](https://www.php.net/)
@@ -21,10 +21,14 @@ Plotdesk-Integration für TYPO3: Seitenbaum-SEO-Daten (`seo_title`, `description
 ## Features
 
 - Custom Reaction `cb-plotdesk-page-seo-export` für eingehende Webhooks (EXT:reactions)
-- Export von `seo_title` und `description` aus den Seiteneigenschaften
+- Flache Seitenliste (`pages`) als SEO-Kontext für Plotdesk/KI
+- Seitenfelder: `uid`, `pid`, `title`, `seo_title`, `description`, `context`
+- `context`: zusammengefasster Fließtext aus `header`/`subheader`/`bodytext` (HTML via `strip_tags` entfernt)
+- Rekursive Unterseiten ab `rootPageId` (inkl. Root)
+- Shortcuts (`doktype` 4) werden aufgelöst; Zielseiten fließen mit ein (ohne Duplikate)
+- Nur Standard-Seiten (`doktype` 1) im Ergebnis; Ordner/Spacer nur für die Traversierung
+- Nur nicht gelöschte und nicht versteckte Inhalte (TYPO3 Default-Restrictions)
 - Steuerung per Payload: `rootPageId`, `languageId`
-- Flache Ergebnisliste (kein verschachtelter Baum)
-- Nur Standard-Seiten (`doktype = 1`); Ordner & Co. werden übersprungen, der Baum darunter weiter durchlaufen
 - Sprach-Overlays über `PageRepository` / `LanguageAspect`
 
 ---
@@ -121,14 +125,8 @@ curl -X POST "https://DEINE-DOMAIN/typo3/reaction/DEIN-IDENTIFIER" \
       "pid": 0,
       "title": "Home",
       "seo_title": "Startseite | Beispiel",
-      "description": "Meta-Description …"
-    },
-    {
-      "uid": 5,
-      "pid": 1,
-      "title": "Über uns",
-      "seo_title": "Über uns",
-      "description": "…"
+      "description": "Meta-Description …",
+      "context": "Willkommen\n\nUnterzeile\n\nText der Seite ohne HTML …\n\nWeiterer Block"
     }
   ]
 }
