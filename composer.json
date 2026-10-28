@@ -1,0 +1,27 @@
+{
+    "name": "cybay/cb-plotdesk",
+    "type": "typo3-cms-extension",
+    "description": "Plotdesk-Integration für TYPO3 (Reactions / Seitenbaum-Export)",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Torben Aschmons",
+            "email": "aschmons@cybay.de"
+        }
+    ],
+    "require": {
+        "php": "^8.2 || ^8.3",
+        "typo3/cms-core": "^13.4",
+        "typo3/cms-reactions": "^13.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cybay\\CbPlotdesk\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "cb_plotdesk"
+        }
+    }
+}
