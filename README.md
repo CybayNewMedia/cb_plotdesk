@@ -1,6 +1,7 @@
 # CB Plotdesk – TYPO3 Extension
 
 Plotdesk-Integration für TYPO3: Seitenbaum-SEO-Daten und Content-Elemente per Reaction als JSON bereitstellen.
+Der main-Branch wird zu https://github.com/CybayNewMedia/cb_plotdesk "ge-mirror-t".
 
 [![TYPO3 13](https://img.shields.io/badge/TYPO3-13.4-orange.svg)](https://get.typo3.org/version/13)
 [![PHP 8.2+](https://img.shields.io/badge/PHP-8.2%20%7C%208.3-blue.svg)](https://www.php.net/)
